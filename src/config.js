@@ -17,6 +17,45 @@ const config = {
 		"Then came the night of the first falling star.",
 		"Waves flung themselves at the blue evening.",
 	],
+	categories: [
+		'Serif',
+		'Sans Serif',
+		'Display',
+		'Handwriting',
+		'Monospace'
+	],
+	sorting: [
+		{value: 'trending', title:'Trending'},
+		{value: 'popularity',title:'Popular'},
+		{value: 'dateAdded',title:'Date Added'},
+		{value: 'family', title:'Alphabetical'}
+	],
+	languages: [
+		'Arabic',
+		'Bengali',
+		'Cyrillic',
+		'Cyrillic Extended',
+		'Devanagari',
+		'Greek',
+		'Greek Extended',
+		'Gujarati',
+		'Gurmukhi',
+		'Hebrew',
+		'Japanese',
+		'Kannada',
+		'Khmer',
+		'Korean',
+		'Latin',
+		'Latin Extended',
+		'Malayalam',
+		'Myanmar',
+		'Oriya',
+		'Sinhala',
+		'Tamil',
+		'Telugu',
+		'Thai',
+		'Vietnamese'
+	],
 }
 
 export default config;

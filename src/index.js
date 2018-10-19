@@ -3,12 +3,16 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { loadState } from './database';
 import { createStore } from 'redux';
-import reducer from './reducers';
+import rootReducer from './reducers';
 import App from './components/App';
 
 const persistedState = loadState();
 
+const store = createStore(rootReducer, persistedState);
+
 render(
-	<App db={ persistedState } />,
+	<Provider store={store}>
+		<App />
+	</Provider>,
 	document.getElementById('root')
 );

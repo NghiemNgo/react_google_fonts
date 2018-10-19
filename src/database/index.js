@@ -28209,7 +28209,7 @@ export const loadState = () => {
       "androidFragment": null
     }
   ];
-		return serializedState;
+		return {fonts: serializedState};
 	} catch (err) {
 		return undefined;
 	}

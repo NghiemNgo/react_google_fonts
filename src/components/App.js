@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ListFont from '../containers/ListFont';
+import FillterFont from '../containers/FillterFont';
+import { getLanguages } from '../actions/index';
 
 class App extends Component {
 
@@ -7,23 +9,17 @@ class App extends Component {
 		super(props);
 	}
 
-	componentWillMount() {
-		this.setState(() => {
-			return {
-				'fonts': this.props.db,
-			};
-		});
-	}
-
-	getFont() {
-		return this.state.fonts.slice(0, 20);;
-	}
-
   render() {
     return (
-
       <div className="App">
-	      <ListFont fonts={this.getFont()} />
+      	<div className="row">
+      		<div className="col-md-10">
+      			<ListFont />
+      		</div>
+      		<div className="col-md-2">
+      			<FillterFont />
+      		</div>
+	    </div>
       </div>
     );
   }
