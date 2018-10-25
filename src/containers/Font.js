@@ -24,7 +24,7 @@ class Font extends Component {
       		<h2 className="fonts-module-subtitle"> {this.designers}
       			<span> { '(' + this.countFonts }</span><span> {this.countFonts > 1 ? 'styles)':'style)'}</span>
       		</h2>
-          <textarea style={{fontFamily:'Charmonman'}} defaultValue={config.word_example[1]} className="font-preview-text"></textarea>
+          <textarea style={{fontFamily:this.font.family}} defaultValue={config.word_example[1]} className="font-preview-text"></textarea>
       	</section>
       </li>
     );

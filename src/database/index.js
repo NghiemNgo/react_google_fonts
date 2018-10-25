@@ -1,4 +1,5 @@
 const FontAPI = 'https://fonts.google.com/metadata/fonts';
+
 export const loadState = () => {
 	try {
 		const serializedState = [

@@ -3,6 +3,7 @@ import Font from './Font';
 import '../css/fontList.css';
 import { connect } from 'react-redux';
 import config from '../config';
+import ApiService from '../ApiService';
 
 class ListFont extends Component {
 
@@ -13,7 +14,8 @@ class ListFont extends Component {
 	}
 
 	UNSAFE_componentWillMount() {
-		this.fonts = this.getFonts(this.props.fonts, this.props.language, this.props.sorting);
+		this.fonts = this.getFonts(this.props.fonts, this.props.language, this.props.sorting, this.props.searching);
+		this.setFontsCss(this.fonts);
 	}
 
 	shouldComponentUpdate(nextProps) {
@@ -22,15 +24,45 @@ class ListFont extends Component {
 	    	 || this.props.category.value !== nextProps.category.value 
 	    	 || this.props.category.checked !== nextProps.category.checked
 	    	 || this.props.sorting !== nextProps.sorting
+	    	 || this.props.searching !== nextProps.searching
 	    ) {
-	    	this.fonts = this.getFonts(this.props.fonts, nextProps.language, nextProps.sorting, nextProps.category);
+	    	this.fonts = this.getFonts(
+	    		this.props.fonts, 
+	    		nextProps.language, 
+	    		nextProps.sorting, 
+	    		nextProps.searching, 
+	    		nextProps.category
+	    	);
+	    	this.setFontsCss(this.fonts);
 	    	console.log('update');
 	      	return true;
 	    }
 	    return false;
 	}
 
-	getFonts(fonts, language, sorting, category = undefined) {
+	setFontsCss(fonts) {
+		let subUrl = '';
+		let firstItem = true;
+		fonts.map(font => {
+			if (firstItem) {
+				subUrl += font.family.replace(' ', '+');
+				firstItem = false;
+			} else {
+				subUrl += ':400%7C' + font.family.replace(/\s/g, "+"); 
+			}
+		});
+		let url = ApiService.fontCss.url + subUrl + ApiService.fontCss.key;
+		fetch(url).then(response => response.text()).then(data => {
+	        let style = document.createElement('style');
+			let content = document.createTextNode(data);
+    		style.appendChild(content);
+    		style.className = 'custome-style';
+			document.getElementsByTagName('head')[0].appendChild(style);
+		});
+	}
+
+	getFonts(fonts, language, sorting, searching, category = undefined) {
+		console.log(searching);
 		if (category) {
 			if (category.checked) {
 				if (this.categories.indexOf(category.value) === -1) {
@@ -42,6 +74,13 @@ class ListFont extends Component {
 					this.categories.splice(index,1);
 				}
 			}
+		}
+		if (searching) {
+			fonts = fonts.filter(font => {
+				if (font.family.toLowerCase().includes(searching.toLowerCase())) {
+			        return true;
+			    }
+			});
 		}
 		fonts = fonts.filter(font => {
 			if (this.categories.indexOf(font.category) !== -1) {
@@ -92,7 +131,8 @@ const mapStateToProps = (state) => {
         fonts: state.fonts,
         language: state.fillterFontByLanguage,
         category: state.fillterFontByCategories,
-        sorting: state.sorting
+        sorting: state.sorting,
+        searching: state.searching
     };
 }
 

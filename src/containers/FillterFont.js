@@ -3,7 +3,7 @@ import config from '../config.js';
 import '../css/fillterFont.css';
 import ApiService from '../ApiService.js';
 import { connect } from 'react-redux';
-import { fillterByLanguage, fillterByCategories, sorting } from '../actions';
+import { fillterByLanguage, fillterByCategories, sorting, searching } from '../actions';
 
 class FillterFont extends Component {
 	constructor(props) {
@@ -37,7 +37,7 @@ class FillterFont extends Component {
           <div className="input-group-prepend">
               <span className="input-group-text purple lighten-3" id="basic-text1"><i className="fa fa-search text-white" aria-hidden="true"></i></span>
           </div>
-          <input className="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+          <input className="form-control my-0 py-1" type="text" onChange={(e) => {this.props.onSearch(e)}} placeholder="Search" aria-label="Search" />
         </div>
 
         <div className="font-category">
@@ -59,6 +59,15 @@ class FillterFont extends Component {
           </select>
         </div>
 
+        <div className="form-group">
+        <label htmlFor="formControlRange">Number of styles</label>
+          <div id="formControlRange">
+            <input type="checkbox" className="form-check-input d-inline"/>
+            <input type="range" className="form-control-range d-inline" />
+          </div>
+        </div>
+
+
       </div>
     );
   }
@@ -73,7 +82,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
       onChange: (e) => { dispatch(fillterByLanguage(e.target.value)); },
       onChangeCategory: (e) => { dispatch(fillterByCategories(e.target.value, e.target.checked));},
-      onSorting: (e) => {dispatch(sorting(e.target.value));}
+      onSorting: (e) => {dispatch(sorting(e.target.value));},
+      onSearch: (e) => {dispatch(searching(e.target.value))}
     };
 }
 

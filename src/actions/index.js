@@ -1,4 +1,3 @@
-
 export const fillterByLanguage = (language) => ({
 	type: 'FILLTER_LANGUAGES',
 	language
@@ -12,5 +11,10 @@ export const fillterByCategories = (category, checked) => ({
 
 export const sorting = (value) => ({
 	type: 'FILLTER_SORT',
+	value: value
+});
+
+export const searching = (value) => ({
+	type: 'FILLTER_SEARCH',
 	value: value
 });

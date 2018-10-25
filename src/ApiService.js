@@ -1,5 +1,8 @@
 const ApiService = {
-	languagesAPI: 'https://restcountries.eu/rest/v2/all?fields=languages;',
+	fontCss: {
+		'url': 'https://fonts.googleapis.com/css?directory=3&family=' ,
+		'key': '&subset=latin&text=+,.AIMSTWabcdefghijklmnopqrstuvwy'
+	},
 }
 
 export default ApiService;
